@@ -1,12 +1,27 @@
-﻿using System;
+﻿using Engine;
+using Logging;
 
-namespace RatingEngine
+namespace MakeRatings
 {
-    class Program
+    static class Program
     {
+        public static ConsoleLogger Logger { get; } = new ConsoleLogger();
+
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Logger.Log("Ardalis Insurance Rating System Starting...");
+
+            var engine = new RatingEngine();
+            engine.Rate();
+
+            if (engine.Rating > 0)
+            {
+                Logger.Log($"Rating: {engine.Rating}");
+            }
+            else
+            {
+                Logger.Log("No rating produced.");
+            }
         }
     }
 }
