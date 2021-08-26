@@ -1,4 +1,5 @@
 ﻿using EncodingFormat;
+using Engine.Policies.Rater;
 using Logging;
 using Persistence;
 using Policies;
@@ -24,14 +25,20 @@ namespace Engine
             switch (policy.Type)
             {
                 case PolicyType.Auto:
-                    break;
+                    var rater = new AutoPolicyRater(this, Logger);
+                    rater.Rate(policy);
 
+                    break;
                 case PolicyType.Land:
-                    break;
+                    var rater2 = new LandPolicyRater(this, Logger);
+                    rater2.Rate(policy);
 
+                    break;
                 case PolicyType.Life:
-                    break;
+                    var rater3 = new LifePolicyRater(this, Logger);
+                    rater3.Rate(policy);
 
+                    break;
                 default:
                     Logger.Log("Unknown policy type");
                     break;
