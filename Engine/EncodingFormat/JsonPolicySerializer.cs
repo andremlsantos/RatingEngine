@@ -1,6 +1,6 @@
-﻿using Domain;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Policies;
 
 namespace EncodingFormat
 {
