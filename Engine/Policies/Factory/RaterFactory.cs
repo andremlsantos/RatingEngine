@@ -1,6 +1,7 @@
-﻿using Policies;
+﻿using Engine.Policies.Types;
+using Policies;
 
-namespace Engine.Policies.Rater
+namespace Engine.Policies.Factory
 {
     public class RaterFactory
     {

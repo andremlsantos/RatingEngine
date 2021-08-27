@@ -1,5 +1,5 @@
 ﻿using EncodingFormat;
-using Engine.Policies.Rater;
+using Engine.Policies.Factory;
 using Logging;
 using Persistence;
 
@@ -20,7 +20,7 @@ namespace Engine
 
             var json = Source.GetPolicyFromSource(Path);
             var policy = Serializer.GetPolicyFromJsonString(json);
-            var factory = new RaterFactory();
+            var factory = new RaterReflectionFactory();
             var rater = factory.Create(policy, this);
 
             rater.Rate(policy);
