@@ -11,6 +11,7 @@ namespace Engine.Policies.Rater
                 PolicyType.Life => new LifePolicyRater(engine, engine.Logger),
                 PolicyType.Land => new LandPolicyRater(engine, engine.Logger),
                 PolicyType.Auto => new AutoPolicyRater(engine, engine.Logger),
+                PolicyType.Flood => new FloodPolicyRater(engine, engine.Logger),
                 _ => new UnknownPolicyRater(engine, engine.Logger),
             };
         }
