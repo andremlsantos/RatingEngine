@@ -2,7 +2,6 @@
 using Engine.Policies.Rater;
 using Logging;
 using Persistence;
-using Policies;
 
 namespace Engine
 {
@@ -21,28 +20,10 @@ namespace Engine
 
             var json = Source.GetPolicyFromSource(Path);
             var policy = Serializer.GetPolicyFromJsonString(json);
+            var factory = new RaterFactory();
+            var rater = factory.Create(policy, this);
 
-            switch (policy.Type)
-            {
-                case PolicyType.Auto:
-                    var rater = new AutoPolicyRater(this, Logger);
-                    rater.Rate(policy);
-
-                    break;
-                case PolicyType.Land:
-                    var rater2 = new LandPolicyRater(this, Logger);
-                    rater2.Rate(policy);
-
-                    break;
-                case PolicyType.Life:
-                    var rater3 = new LifePolicyRater(this, Logger);
-                    rater3.Rate(policy);
-
-                    break;
-                default:
-                    Logger.Log("Unknown policy type");
-                    break;
-            }
+            rater.Rate(policy);
 
             Logger.Log("Rating completed.");
         }

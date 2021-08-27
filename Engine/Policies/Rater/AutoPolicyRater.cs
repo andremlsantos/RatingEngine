@@ -3,18 +3,12 @@ using Policies;
 
 namespace Engine.Policies.Rater
 {
-    public class AutoPolicyRater
+    public class AutoPolicyRater : Rater
     {
-        private readonly RatingEngine _engine;
-        private readonly ConsoleLogger _logger;
-
         public AutoPolicyRater(RatingEngine engine, ConsoleLogger logger)
-        {
-            _engine = engine;
-            _logger = logger;
-        }
+            : base(engine, logger) { }
 
-        public void Rate(Policy policy)
+        public override void Rate(Policy policy)
         {
             _logger.Log("Rating AUTO policy...");
             _logger.Log("Validating policy.");
