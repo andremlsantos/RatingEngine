@@ -1,19 +1,19 @@
-﻿using Logging;
+﻿using Engine.Context;
 using Policies;
+using System;
 
 namespace Engine.Policies.Types
 {
     public class AutoPolicyRater : Rater
     {
-        public AutoPolicyRater(RatingEngine engine, ConsoleLogger logger)
-            : base(engine, logger) { }
+        public AutoPolicyRater(IRatingContext context) : base(context) { }
 
         public override void Rate(Policy policy)
         {
             _logger.Log("Rating AUTO policy...");
             _logger.Log("Validating policy.");
 
-            if (string.IsNullOrEmpty(policy.Make))
+            if (String.IsNullOrEmpty(policy.Make))
             {
                 _logger.Log("Auto policy must specify Make");
                 return;
@@ -23,9 +23,9 @@ namespace Engine.Policies.Types
             {
                 if (policy.Deductible < 500)
                 {
-                    _engine.Rating = 1000m;
+                    _context.UpdateRating(1000m);
                 }
-                _engine.Rating = 900m;
+                _context.UpdateRating(900m);
             }
         }
     }

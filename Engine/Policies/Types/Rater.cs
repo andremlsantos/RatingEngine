@@ -1,17 +1,18 @@
-﻿using Logging;
+﻿using Engine.Context;
+using Logging;
 using Policies;
 
 namespace Engine.Policies.Types
 {
     public abstract class Rater
     {
-        protected readonly RatingEngine _engine;
+        protected readonly IRatingContext _context;
         protected readonly ConsoleLogger _logger;
 
-        public Rater(RatingEngine engine, ConsoleLogger logger)
+        public Rater(IRatingContext context)
         {
-            _engine = engine;
-            _logger = logger;
+            _context = context;
+            _logger = _context.Logger;
         }
 
         public abstract void Rate(Policy policy);

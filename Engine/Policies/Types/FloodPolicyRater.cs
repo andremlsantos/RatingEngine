@@ -1,12 +1,11 @@
-﻿using Logging;
+﻿using Engine.Context;
 using Policies;
 
 namespace Engine.Policies.Types
 {
     public class FloodPolicyRater : Rater
     {
-        public FloodPolicyRater(RatingEngine engine, ConsoleLogger logger)
-            : base(engine, logger) { }
+        public FloodPolicyRater(IRatingContext context) : base(context) { }
 
         public override void Rate(Policy policy)
         {
@@ -31,7 +30,7 @@ namespace Engine.Policies.Types
                 return;
             }
 
-            var multiple = 1.0m;
+            decimal multiple = 1.0m;
             if (policy.ElevationAboveSeaLevelFeet < 100)
             {
                 multiple = 2.0m;
@@ -45,7 +44,7 @@ namespace Engine.Policies.Types
                 multiple = 1.1m;
             }
 
-            _engine.Rating = policy.BondAmount * 0.05m * multiple;
+            _context.UpdateRating(policy.BondAmount * 0.05m * multiple);
         }
     }
 }

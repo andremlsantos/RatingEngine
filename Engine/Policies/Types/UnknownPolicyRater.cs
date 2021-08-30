@@ -1,12 +1,11 @@
-﻿using Logging;
+﻿using Engine.Context;
 using Policies;
 
 namespace Engine.Policies.Types
 {
     public class UnknownPolicyRater : Rater
     {
-        public UnknownPolicyRater(RatingEngine engine, ConsoleLogger logger)
-            : base(engine, logger) { }
+        public UnknownPolicyRater(IRatingContext context) : base(context) { }
 
         public override void Rate(Policy policy)
         {

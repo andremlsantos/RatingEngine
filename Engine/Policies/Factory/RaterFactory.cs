@@ -1,20 +1,24 @@
-﻿using Engine.Policies.Types;
+﻿using Engine.Context;
+using Engine.Policies.Types;
 using Policies;
+using System;
 
 namespace Engine.Policies.Factory
 {
     public class RaterFactory
     {
-        public Rater Create(Policy policy, RatingEngine engine)
+        public Rater Create(Policy policy, IRatingContext context)
         {
-            return policy.Type switch
+            var className = $"Engine.Policies.Types.{ policy.Type}PolicyRater";
+
+            try
             {
-                PolicyType.Life => new LifePolicyRater(engine, engine.Logger),
-                PolicyType.Land => new LandPolicyRater(engine, engine.Logger),
-                PolicyType.Auto => new AutoPolicyRater(engine, engine.Logger),
-                PolicyType.Flood => new FloodPolicyRater(engine, engine.Logger),
-                _ => new UnknownPolicyRater(engine, engine.Logger),
-            };
+                return (Rater)Activator.CreateInstance(Type.GetType(className), new object[] { context });
+            }
+            catch
+            {
+                return new UnknownPolicyRater(context);
+            }
         }
     }
 }

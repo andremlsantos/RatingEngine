@@ -1,16 +1,14 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
-namespace Persistence
+namespace Engine.Persistence
 {
     public class FilePolicySource
     {
-        public string GetPolicyFromSource(string path)
-        {
-            if (string.IsNullOrEmpty(path))
-                throw new ArgumentNullException("path");
+        private const string Path = "";
 
-            return File.ReadAllText(path);
+        public string GetPolicyFromSource()
+        {
+            return File.ReadAllText(Path);
         }
     }
 }

@@ -2,7 +2,7 @@
 using Newtonsoft.Json.Converters;
 using Policies;
 
-namespace EncodingFormat
+namespace Engine.Serializer
 {
     public class JsonPolicySerializer
     {

@@ -1,31 +1,29 @@
-﻿using EncodingFormat;
-using Engine.Policies.Factory;
-using Logging;
-using Persistence;
+﻿using Engine.Context;
 
 namespace Engine
 {
     public class RatingEngine
     {
-        private const string Path = "";
-        public ConsoleLogger Logger { get; } = new ConsoleLogger();
-        public FilePolicySource Source { get; } = new FilePolicySource();
-        public JsonPolicySerializer Serializer { get; } = new JsonPolicySerializer();
+        public IRatingContext Context { get; set; } = new DefaultRatingContext();
         public decimal Rating { get; set; }
+
+        public RatingEngine()
+        {
+            Context.Engine = this;
+        }
 
         public void Rate()
         {
-            Logger.Log("Starting rate.");
-            Logger.Log("Loading policy.");
+            Context.Logger.Log("Starting rate.");
+            Context.Logger.Log("Loading policy.");
 
-            var json = Source.GetPolicyFromSource(Path);
-            var policy = Serializer.GetPolicyFromJsonString(json);
-            var factory = new RaterReflectionFactory();
-            var rater = factory.Create(policy, this);
+            var policyJson = Context.LoadPolicyFromFile();
+            var policy = Context.GetPolicyFromJsonString(policyJson);
+            var rater = Context.CreateRaterForPolicy(policy, Context);
 
             rater.Rate(policy);
 
-            Logger.Log("Rating completed.");
+            Context.Log("Rating completed.");
         }
     }
 }
