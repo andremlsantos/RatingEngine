@@ -1,5 +1,5 @@
-﻿using Engine.Context;
-using Engine.Logging;
+﻿using Engine.Logging;
+using Engine.Policies.Updater;
 using Logging;
 using Policies;
 
@@ -7,12 +7,12 @@ namespace Engine.Policies.Types
 {
     public abstract class Rater
     {
-        protected readonly IRatingContext _context;
-        protected ILogger Logger { get; set; } = new ConsoleLogger();
+        protected readonly IRatingUpdater _ratingUpdater;
+        public ILogger Logger { get; set; } = new ConsoleLogger();
 
-        public Rater(IRatingContext context)
+        public Rater(IRatingUpdater ratingUpdater)
         {
-            _context = context;
+            _ratingUpdater = ratingUpdater;
         }
 
         public abstract void Rate(Policy policy);

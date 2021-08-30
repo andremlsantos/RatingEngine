@@ -14,8 +14,8 @@ namespace Engine
 
         public void Rate()
         {
-            Context.Logger.Log("Starting rate.");
-            Context.Logger.Log("Loading policy.");
+            Context.Log("Starting rate.");
+            Context.Log("Loading policy.");
 
             var policyJson = Context.LoadPolicyFromFile();
             var policy = Context.GetPolicyFromJsonString(policyJson);
@@ -23,7 +23,7 @@ namespace Engine
 
             rater.Rate(policy);
 
-            Context.Logger.Log("Rating completed.");
+            Context.Log("Rating completed.");
         }
     }
 }

@@ -11,7 +11,6 @@ namespace Engine.Context
     public class DefaultRatingContext : IRatingContext
     {
         public RatingEngine Engine { get; set; }
-        public ConsoleLogger Logger => new ConsoleLogger();
 
         public Rater CreateRaterForPolicy(Policy policy, IRatingContext context)
         {

@@ -1,5 +1,6 @@
 ﻿using Engine.Context;
 using Engine.Policies.Types;
+using Engine.Policies.Updater;
 using Policies;
 using System;
 
@@ -13,11 +14,13 @@ namespace Engine.Policies.Factory
 
             try
             {
-                return (Rater)Activator.CreateInstance(Type.GetType(className), new object[] { context });
+                return (Rater)Activator.CreateInstance(Type.GetType(className), new object[] {
+                    new RatingUpdater(context.Engine)
+                });
             }
             catch
             {
-                return new UnknownPolicyRater(context);
+                return new UnknownPolicyRater(new RatingUpdater(context.Engine));
             }
         }
     }

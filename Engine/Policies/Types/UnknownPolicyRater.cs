@@ -1,11 +1,11 @@
-﻿using Engine.Context;
+﻿using Engine.Policies.Updater;
 using Policies;
 
 namespace Engine.Policies.Types
 {
     public class UnknownPolicyRater : Rater
     {
-        public UnknownPolicyRater(IRatingContext context) : base(context) { }
+        public UnknownPolicyRater(IRatingUpdater ratingUpdater) : base(ratingUpdater) { }
 
         public override void Rate(Policy policy)
         {

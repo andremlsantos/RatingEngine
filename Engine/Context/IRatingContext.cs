@@ -1,6 +1,5 @@
 ﻿using Engine.Logging;
 using Engine.Policies.Types;
-using Logging;
 using Policies;
 
 namespace Engine.Context
@@ -14,9 +13,7 @@ namespace Engine.Context
         Policy GetPolicyFromXmlString(string policyXml);
 
         Rater CreateRaterForPolicy(Policy policy, IRatingContext context);
-        void UpdateRating(decimal rating);
 
         RatingEngine Engine { get; set; }
-        ConsoleLogger Logger { get; }
     }
 }

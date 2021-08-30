@@ -1,4 +1,4 @@
-﻿using Engine.Context;
+﻿using Engine.Policies.Updater;
 using Policies;
 using System;
 
@@ -6,7 +6,7 @@ namespace Engine.Policies.Types
 {
     public class AutoPolicyRater : Rater
     {
-        public AutoPolicyRater(IRatingContext context) : base(context) { }
+        public AutoPolicyRater(IRatingUpdater ratingUpdater) : base(ratingUpdater) { }
 
         public override void Rate(Policy policy)
         {
@@ -23,9 +23,9 @@ namespace Engine.Policies.Types
             {
                 if (policy.Deductible < 500)
                 {
-                    _context.UpdateRating(1000m);
+                    _ratingUpdater.UpdateRating(1000m);
                 }
-                _context.UpdateRating(900m);
+                _ratingUpdater.UpdateRating(900m);
             }
         }
     }
