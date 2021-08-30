@@ -10,12 +10,12 @@ namespace Engine.Policies.Types
 
         public override void Rate(Policy policy)
         {
-            _logger.Log("Rating AUTO policy...");
-            _logger.Log("Validating policy.");
+            Logger.Log("Rating AUTO policy...");
+            Logger.Log("Validating policy.");
 
             if (String.IsNullOrEmpty(policy.Make))
             {
-                _logger.Log("Auto policy must specify Make");
+                Logger.Log("Auto policy must specify Make");
                 return;
             }
 

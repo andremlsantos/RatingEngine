@@ -1,12 +1,12 @@
-﻿using Engine.Policies.Types;
+﻿using Engine.Logging;
+using Engine.Policies.Types;
 using Logging;
 using Policies;
 
 namespace Engine.Context
 {
-    public interface IRatingContext
+    public interface IRatingContext : ILogger
     {
-        void Log(string message);
         string LoadPolicyFromFile();
         string LoadPolicyFromURI(string uri);
 

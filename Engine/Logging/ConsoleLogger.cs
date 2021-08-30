@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Engine.Logging;
+using System;
 
 namespace Logging
 {
-    public class ConsoleLogger
+    public class ConsoleLogger : ILogger
     {
         public void Log(string message)
         {

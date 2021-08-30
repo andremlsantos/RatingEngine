@@ -23,7 +23,7 @@ namespace Engine
 
             rater.Rate(policy);
 
-            Context.Log("Rating completed.");
+            Context.Logger.Log("Rating completed.");
         }
     }
 }
