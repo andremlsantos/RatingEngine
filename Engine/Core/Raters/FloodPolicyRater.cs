@@ -1,13 +1,13 @@
-﻿using Engine.Policies.Updater;
-using Policies;
+﻿using Engine.Core.Interfaces;
+using Engine.Core.Model;
 
-namespace Engine.Policies.Types
+namespace Engine.Core.Raters
 {
     public class FloodPolicyRater : Rater
     {
-        public FloodPolicyRater(IRatingUpdater ratingUpdater) : base(ratingUpdater) { }
+        public FloodPolicyRater(ILogger logger) : base(logger) { }
 
-        public override void Rate(Policy policy)
+        public override decimal Rate(Policy policy)
         {
             Logger.Log("Rating FLOOD policy...");
             Logger.Log("Validating policy.");
@@ -15,19 +15,19 @@ namespace Engine.Policies.Types
             if (policy.BondAmount == 0 || policy.Valuation == 0)
             {
                 Logger.Log("Flood policy must specify Bond Amount and Valuation.");
-                return;
+                return DefaultValue;
             }
 
             if (policy.ElevationAboveSeaLevelFeet <= 0)
             {
                 Logger.Log("Flood policy is not available for elevations at or below sea level.");
-                return;
+                return DefaultValue;
             }
 
             if (policy.BondAmount < 0.8m * policy.Valuation)
             {
                 Logger.Log("Insufficient bond amount.");
-                return;
+                return DefaultValue;
             }
 
             decimal multiple = 1.0m;
@@ -44,7 +44,7 @@ namespace Engine.Policies.Types
                 multiple = 1.1m;
             }
 
-            _ratingUpdater.UpdateRating(policy.BondAmount * 0.05m * multiple);
+            return policy.BondAmount * 0.05m * multiple;
         }
     }
 }

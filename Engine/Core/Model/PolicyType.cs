@@ -1,4 +1,4 @@
-﻿namespace Policies
+﻿namespace Engine.Core.Model
 {
     public enum PolicyType
     {

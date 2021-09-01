@@ -1,14 +1,14 @@
-﻿using Engine.Policies.Updater;
-using Policies;
+﻿using Engine.Core.Interfaces;
+using Engine.Core.Model;
 using System;
 
-namespace Engine.Policies.Types
+namespace Engine.Core.Raters
 {
     public class LifePolicyRater : Rater
     {
-        public LifePolicyRater(IRatingUpdater ratingUpdater) : base(ratingUpdater) { }
+        public LifePolicyRater(ILogger logger) : base(logger) { }
 
-        public override void Rate(Policy policy)
+        public override decimal Rate(Policy policy)
         {
             Logger.Log("Rating LIFE policy...");
             Logger.Log("Validating policy.");
@@ -16,19 +16,19 @@ namespace Engine.Policies.Types
             if (policy.DateOfBirth == DateTime.MinValue)
             {
                 Logger.Log("Life policy must include Date of Birth.");
-                return;
+                return DefaultValue;
             }
 
             if (policy.DateOfBirth < DateTime.Today.AddYears(-100))
             {
                 Logger.Log("Centenarians are not eligible for coverage.");
-                return;
+                return DefaultValue;
             }
 
             if (policy.Amount == 0)
             {
                 Logger.Log("Life policy must include an Amount.");
-                return;
+                return DefaultValue;
             }
 
             var age = DateTime.Today.Year - policy.DateOfBirth.Year;
@@ -42,11 +42,10 @@ namespace Engine.Policies.Types
             var baseRate = policy.Amount * age / 200;
             if (policy.IsSmoker)
             {
-                _ratingUpdater.UpdateRating(baseRate * 2);
-                return;
+                return baseRate * 2;
             }
 
-            _ratingUpdater.UpdateRating(baseRate);
+            return baseRate;
         }
     }
 }

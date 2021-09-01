@@ -1,14 +1,14 @@
-﻿using Engine.Policies.Updater;
-using Policies;
+﻿using Engine.Core.Interfaces;
+using Engine.Core.Model;
 using System;
 
-namespace Engine.Policies.Types
+namespace Engine.Core.Raters
 {
     public class AutoPolicyRater : Rater
     {
-        public AutoPolicyRater(IRatingUpdater ratingUpdater) : base(ratingUpdater) { }
+        public AutoPolicyRater(ILogger logger) : base(logger) { }
 
-        public override void Rate(Policy policy)
+        public override decimal Rate(Policy policy)
         {
             Logger.Log("Rating AUTO policy...");
             Logger.Log("Validating policy.");
@@ -16,17 +16,19 @@ namespace Engine.Policies.Types
             if (String.IsNullOrEmpty(policy.Make))
             {
                 Logger.Log("Auto policy must specify Make");
-                return;
+                return DefaultValue;
             }
 
             if (policy.Make == "BMW")
             {
                 if (policy.Deductible < 500)
                 {
-                    _ratingUpdater.UpdateRating(1000m);
+                    return 1000m;
                 }
-                _ratingUpdater.UpdateRating(900m);
+                return 900m;
             }
+
+            return DefaultValue;
         }
     }
 }

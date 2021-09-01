@@ -1,4 +1,4 @@
-﻿namespace Engine.Logging
+﻿namespace Engine.Core.Interfaces
 {
     public interface ILogger
     {

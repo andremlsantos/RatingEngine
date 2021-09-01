@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Text.Json;
 
-namespace Policies
+namespace Engine.Core.Model
 {
     public class Policy
     {
@@ -30,5 +31,10 @@ namespace Policies
         public int Miles { get; set; }
         public decimal Deductible { get; set; }
         #endregion
+
+        public override string ToString()
+        {
+            return JsonSerializer.Serialize(this);
+        }
     }
 }

@@ -1,7 +1,7 @@
-﻿using Engine.Logging;
+﻿using Engine.Core.Interfaces;
 using System;
 
-namespace Logging
+namespace Engine.Infrastructure.Loggers
 {
     public class ConsoleLogger : ILogger
     {

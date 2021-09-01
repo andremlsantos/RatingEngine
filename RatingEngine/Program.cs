@@ -1,4 +1,7 @@
 ﻿using Engine;
+using Engine.Persistence;
+using Engine.Policies.Factory;
+using Engine.Serializer;
 using Logging;
 
 namespace MakeRatings
@@ -11,7 +14,13 @@ namespace MakeRatings
         {
             Logger.Log("Ardalis Insurance Rating System Starting...");
 
-            var engine = new RatingEngine(new ConsoleLogger());
+            var logger = new ConsoleLogger();
+            var engine = new RatingEngine(
+                logger,
+                new FilePolicySource(),
+                new JsonPolicySerializer(),
+                new RaterFactory(logger));
+
             engine.Rate();
 
             if (engine.Rating > 0)
