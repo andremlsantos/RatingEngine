@@ -5,7 +5,7 @@ namespace Engine.Core.Raters
 {
     public abstract class Rater
     {
-        protected ILogger Logger { get; set; }
+        public ILogger Logger { get; set; }
 
         protected decimal DefaultValue = 0m;
 
