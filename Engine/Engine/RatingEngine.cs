@@ -1,21 +1,25 @@
 ﻿using Engine.Context;
+using Engine.Logging;
 
 namespace Engine
 {
     public class RatingEngine
     {
+        private readonly ILogger _logger;
+
         public IRatingContext Context { get; set; } = new DefaultRatingContext();
         public decimal Rating { get; set; }
 
-        public RatingEngine()
+        public RatingEngine(ILogger logger)
         {
+            _logger = logger;
             Context.Engine = this;
         }
 
         public void Rate()
         {
-            Context.Log("Starting rate.");
-            Context.Log("Loading policy.");
+            _logger.Log("Starting rate.");
+            _logger.Log("Loading policy.");
 
             var policyJson = Context.LoadPolicyFromFile();
             var policy = Context.GetPolicyFromJsonString(policyJson);
@@ -23,7 +27,7 @@ namespace Engine
 
             rater.Rate(policy);
 
-            Context.Log("Rating completed.");
+            _logger.Log("Rating completed.");
         }
     }
 }

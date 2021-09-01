@@ -37,7 +37,7 @@ namespace Tests
 
             rater.Rate(policy);
 
-            Assert.Equal(1000m, ratingUpdater.NewRating.Value);
+            Assert.Equal(900m, ratingUpdater.NewRating.Value);
         }
 
         [Fact]
