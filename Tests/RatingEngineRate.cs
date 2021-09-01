@@ -1,4 +1,5 @@
 using Engine;
+using Logging;
 using Newtonsoft.Json;
 using Policies;
 using System.IO;
@@ -17,10 +18,10 @@ namespace Tests
                 BondAmount = 200000,
                 Valuation = 200000
             };
-            string json = JsonConvert.SerializeObject(policy);
+            var json = JsonConvert.SerializeObject(policy);
             File.WriteAllText("policy.json", json);
 
-            var engine = new RatingEngine();
+            var engine = new RatingEngine(new ConsoleLogger());
             engine.Rate();
             var result = engine.Rating;
 
@@ -39,7 +40,7 @@ namespace Tests
             string json = JsonConvert.SerializeObject(policy);
             File.WriteAllText("policy.json", json);
 
-            var engine = new RatingEngine();
+            var engine = new RatingEngine(new ConsoleLogger());
             engine.Rate();
             var result = engine.Rating;
 
